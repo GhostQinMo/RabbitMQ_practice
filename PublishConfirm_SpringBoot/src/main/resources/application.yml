@@ -1,0 +1,9 @@
+server:
+  port: 8081
+spring:
+  rabbitmq:
+    host: 192.168.241.128
+    username: admin
+    password: 123
+    port: 5672
+    publisher-confirm-type: CORRELATED
