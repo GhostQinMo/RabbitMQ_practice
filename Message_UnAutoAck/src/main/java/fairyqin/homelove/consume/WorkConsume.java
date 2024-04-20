@@ -28,7 +28,10 @@ public class WorkConsume {
         // TODO 也可以把声明队列也进行封装
 //        instance.queueDeclare(UNAUTOACK_QUEUE, true, false, true, null);
         //获取队列中的任务进行消费
-        //consumerTag表示与消费者关联的标签  message 表示传递的消息
+        /**
+         *   consumerTag表示与消费者关联的标签
+         *   message 表示传递的消息
+         */
         DeliverCallback deliverCallback = (consumerTag, message) -> {
             //假设消息处理需要一定的时间
             try {
@@ -39,7 +42,7 @@ public class WorkConsume {
                 e.printStackTrace();
             }
             System.out.println("consume接收到的任务是>>" + new String(message.getBody()));
-            //手动应答消息处理完成  通过messagek(传递的消息)可以获取的消息的标签
+            //手动应答消息处理完成  通过message(传递的消息)可以获取的消息的标签
             instance.basicAck(message.getEnvelope().getDeliveryTag(), false);
         };
         CancelCallback cancelCallback = (consumeTag) -> {
@@ -48,10 +51,10 @@ public class WorkConsume {
         log.info("等待被分配消息");
         //关闭自动应答，改为手动应答
         Boolean auto = false;
-        //参数的取值1是为不公平分发，其实其他参数也可以 0表示不受限制
+        //参数的取值1是为不公平分发，其实其他参数也可以   0表示不受限制
 //        instance.basicQos(256);
         instance.basicConsume(UNAUTOACK_QUEUE, auto, deliverCallback, cancelCallback);
-        //通过回到方法，实现异步操作，java中只能使用多线程实现异步操作
+        //通过回调方法，实现异步操作，java中只能使用多线程实现异步操作
         log.info("处理一些操作");
 
     }

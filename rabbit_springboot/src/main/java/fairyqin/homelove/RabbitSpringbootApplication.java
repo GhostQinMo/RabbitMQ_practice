@@ -8,5 +8,4 @@ public class RabbitSpringbootApplication {
     public static void main(String[] args) {
         SpringApplication.run(RabbitSpringbootApplication.class, args);
     }
-
 }

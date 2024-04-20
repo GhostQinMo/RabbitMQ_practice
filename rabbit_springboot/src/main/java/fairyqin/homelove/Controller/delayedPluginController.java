@@ -38,10 +38,10 @@ public class delayedPluginController {
                 new Date(), delayed_config.DELAYED_ROUTINGKEY
                 , message, ttl);
         //消息的后置处理器
-        MessagePostProcessor messagePostProcessor1=(ProcessMessage)->{
+        MessagePostProcessor messagePostProcessor1=(message1)->{
             //这里不是设置过期时间，而是设置延迟时间
-            ProcessMessage.getMessageProperties().setDelay(ttl);
-            return ProcessMessage;
+            message1.getMessageProperties().setDelay(ttl);
+            return message1;
         };
         rabbitTemplate.convertAndSend(delayed_config.DELAYED_EXCHANGE
                 , delayed_config.DELAYED_ROUTINGKEY

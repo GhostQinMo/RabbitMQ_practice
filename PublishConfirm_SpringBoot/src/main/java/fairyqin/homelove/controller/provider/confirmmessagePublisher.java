@@ -75,7 +75,7 @@ public class confirmmessagePublisher implements RabbitTemplate.ConfirmCallback, 
     @RequestMapping("/resendMessage/{message}")
     public void publusherConfirm(@PathVariable("message") String message) {
         //这里的correlationData就是在交换机调用ConfirmCallback函数式接口使用的数据，如果这里不提供的话，交换机确认回调函数返回就没有数据
-        //这个id不是消息的id，而是 交换机验证是使用的id
+        //这个id不是消息的id，而是 交换机验证时使用的id
         CorrelationData correlationData1 = new CorrelationData("100");
         String returnkey1 = "routingkey为key1";
         MessageProperties messageProperties = new MessageProperties();

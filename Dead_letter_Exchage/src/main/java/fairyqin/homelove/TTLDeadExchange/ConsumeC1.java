@@ -56,7 +56,7 @@ public class ConsumeC1 {
         * 4. 设置正常队列的最大缓冲值
         */
         arguments.put("x-dead-letter-exchange", DEAD_EXCHANGE);
-        //过期时间，单位为ms
+        //过期时间，单位为ms   如果在这里设置过期时间的话，指的是整个队列中的所有消息的过期时间为100000ms,所以一般不在这里设置，而是单独为某个消息设置
         //arguments.put("x-message-ttl",100000);
         arguments.put("x-dead-letter-routing-key", DEAD_ROUTINGKEY);
         //设置缓冲值 测试拒绝策略是关闭限制缓冲

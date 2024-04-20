@@ -30,9 +30,9 @@ public class Confirm_Publisher {
     // 异步发布确认模式1000条消息所有的时间为52ms
     public static void main(String[] args) throws Exception {
         //单个发布确认
-        //SinglePublish_Confirm();
+        SinglePublish_Confirm();
         //批量发布确认模式
-//        MultiPublish_Confirm();
+        MultiPublish_Confirm();
         //异步发布确认模式
         PublishConfirmModeAsync();
     }
@@ -136,6 +136,7 @@ public class Confirm_Publisher {
             //multiple 为true表示批量处理，因为消息是按照序列从0开始发送的，开始的时候讲过，会为每一个消息添加一个序列号（从0开始）
             if (multiple){
                 //返回的是一个序列号严格消息指定值的原映射的视图（map），在这个视图上的更改会影响原视图，反之亦然
+                //返回此地图部分的视图，其密钥严格小于 toKey 。
                 ConcurrentNavigableMap<Long, String> longStringConcurrentNavigableMap =
                         container.headMap(deliveryTag);
                 //从未确认的map中清除这些消息（这个map是线程安全的）
@@ -169,12 +170,13 @@ public class Confirm_Publisher {
             String message="message to you from fairyqin"+i;
             //发送之前得到代发消息的序列号
             long nextPublishSeqNo = channel.getNextPublishSeqNo();
+            //先保存在发送
+            container.put(nextPublishSeqNo,message);
             //还是使用默认交换机,使用队列名代替routingkey
             //设置消息持久化
             channel.basicPublish("",CONFIRM_QUEUE,
                     MessageProperties.PERSISTENT_TEXT_PLAIN,
                     message.getBytes(StandardCharsets.UTF_8));
-            container.put(nextPublishSeqNo,message);
             log.info("序列号为{}的消息发送，消息体为{}",nextPublishSeqNo,message);
         }
         long end = System.currentTimeMillis();

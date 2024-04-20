@@ -20,7 +20,7 @@ public class Consume {
     private final static String QUEUE_NAME = "hello_word";
 
     public static void main(String[] args) throws Exception {
-        //创建  创建连接的工厂
+        //创建一个创建连接的工厂
         ConnectionFactory connectionFactory = new ConnectionFactory();
         //配置连接工厂的配置信息
         connectionFactory.setHost("192.168.241.128");
@@ -45,7 +45,6 @@ public class Consume {
                 System.out.println("消息未被正确接收");
             }
         };
-
         //设置消费者自动应答
         channel.basicConsume(QUEUE_NAME, true, deliverCallback, cancelCallback);
     }

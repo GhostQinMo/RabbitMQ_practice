@@ -33,7 +33,7 @@ public class MessageProduct {
         /**
          * 1.队列名称
          * 2.队列里面的消息是否持久化 默认消息存储在内存中
-         * 3.该队列是否只供一个消费者进行消费 是否进行共享 fase可以多个消费者消费
+         * 3.该队列是否只供一个消费者进行消费 是否进行共享 false可以多个消费者消费
          * 4.是否自动删除 最后一个消费者端开连接以后 该队列是否自动删除 true自动删除
          * 5.其他参数
          */
@@ -47,7 +47,7 @@ public class MessageProduct {
          * 3.其他的参数信息
          * 4.发送消息的消息体
          */
-        //使用默认的交换机，当使用默认的交换机的时候可以用队列名来代替routingkey
+        //这里使用的是默认的交换机，当使用默认的交换机的时候可以用队列名来代替routingkey
         channel.basicPublish("", QUEUE_NAME, null, message.getBytes(StandardCharsets.UTF_8));
         log.info("生产者往{}队列中发送一条消息,消息的内容为=>>>{}", QUEUE_NAME, message);
     }

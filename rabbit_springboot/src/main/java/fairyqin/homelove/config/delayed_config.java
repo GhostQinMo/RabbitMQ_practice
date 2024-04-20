@@ -45,6 +45,15 @@ public class delayed_config {
         arguments.put("x-delayed-type", "direct");
         //第二个参数自己添加的交换机的类型
         //为什么这里又是自定义类型，而参数设置又是直接交换机（Direct）,我的理解是带有延迟设置的直接交换机
+        /*
+         在这段代码中，虽然使用了CustomExchange自定义交换机类型，但实际上在定义CustomExchange时，指定了参数"x-delayed-type"为"direct"，
+         这意味着这个自定义交换机其实是一个带有延迟设置的直接交换机。
+
+        通过设置"x-delayed-type"参数为"direct"，我们可以创建一个直接交换机，但是该交换机具有延迟消息的特性。
+        这样就实现了一个自定义类型的交换机，同时又能保留直接交换机的特性，使得消息能够按照指定的routing key进行路由，并且具有延迟消息的功能。
+        因此，在这种情况下，自定义交换机类型是带有延迟设置的直接交换机。
+
+        */
         CustomExchange customExchange   =new CustomExchange(DELAYED_EXCHANGE,
                 "x-delayed-message",
                 true,false,arguments);

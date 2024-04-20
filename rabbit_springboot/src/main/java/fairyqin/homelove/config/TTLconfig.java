@@ -47,7 +47,6 @@ public class TTLconfig {
         return ExchangeBuilder.directExchange(NORMAL_EXCHANGE)
                 .durable(true)
                 .build();
-
     }
 
     @Bean(value = "DEAD_EXCHANGE")
